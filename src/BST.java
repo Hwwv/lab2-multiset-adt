@@ -29,12 +29,13 @@ public class BST {
 
 
     public boolean isEmpty() {
-        return false; // TODO implement me!
+        // NEW CHANGE
+        return root == null;
     }
 
     public boolean contains(int item) {
         // provided as an example
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             return false;
         } else if (item == this.root) {
             return true;
@@ -47,33 +48,92 @@ public class BST {
 
 
     public void insert(int item) {
-
+        // NEW CHANGE
+        if (isEmpty()) {
+            root = item;
+            left =  new BST();
+            right = new BST();
+        } else if (item <= this.root) {
+            this.left.insert(item);
+        } else {
+            this.right.insert(item);
+        }
     }
 
 
     public void delete(int item) {
-
+        // NEW CHANGE
+        if (isEmpty()) {
+            // "Pass" in Python
+        } else if (root == item) {
+            deleteRoot();
+        } else if (item < root) {
+            left.delete(item);
+        } else {
+            right.delete(item);
+        }
     }
 
     private void deleteRoot() {
-
+        // NEW CHANGE
+        // Is there any better way to parallel assignment?
+        if (left.isEmpty() && right.isEmpty()) {
+            root = null;
+            left = null;
+            right = null;
+        } else if (left.isEmpty()) {
+            root = right.root;
+            left = right.left;
+            right = right.right;
+        } else if (right.isEmpty()) {
+            root = left.root;
+            right = left.right;
+            left = left.left;
+        } else {
+            root = left.extractMax();
+        }
     }
 
 
     private int extractMax() {
-        return -1;
+        // NEW CHANGE
+        if (right.isEmpty()) {
+            int maxItem = root;
+            // Using Alternative Approach
+            deleteRoot();
+            return maxItem;
+        } else {
+            return right.extractMax();
+        }
     }
 
     public int height() {
-        return -1;
+        // NEW CHANGE
+        if (this.isEmpty()) {
+            return 0;
+        }
+        return Math.max(left.height(), right.height()) + 1;
     }
 
     public int count(int item) {
-        return -1;
+        // NEW CHANGE
+        if (this.isEmpty()) {
+            return 0;
+        } else if (root > item) {
+            return left.count(item);
+        } else if (root == item) {
+            return left.count(item) + right.count(item) + 1;
+        } else {
+            return right.count(item);
+        }
     }
 
     public int getSize() {
-        return -1;
+        // NEW CHANGE
+        if (this.isEmpty()) {
+            return 0;
+        }
+        return 1 + left.getSize() + right.getSize();
     }
 
     public static void main(String[] args) {
