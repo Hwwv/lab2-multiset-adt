@@ -11,7 +11,6 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     void add(int item) {
-        bst.insert(item);
     }
 
     /**
@@ -22,7 +21,6 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     void remove(int item) {
-        bst.delete(item);
     }
 
     /**
@@ -33,8 +31,7 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     boolean contains(int item) {
-
-        return bst.contains(item);
+        return false;
     }
 
     /**
@@ -42,7 +39,7 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     boolean isEmpty() {
-        return bst.isEmpty();
+        return false;
     }
 
     /**
@@ -53,7 +50,7 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     int count(int item) {
-        return bst.count(item);
+        return -1;
     }
 
     /**
@@ -61,6 +58,6 @@ public class BSTMultiSet extends MultiSet {
      */
     @Override
     int size() {
-        return bst.getSize();
+        return -1;
     }
 }
